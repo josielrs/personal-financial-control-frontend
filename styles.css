@@ -1,0 +1,326 @@
+body,
+ul,
+li {
+    font-family: tahoma;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color:  white;
+}
+
+header {
+    background-color: white;
+}
+
+header .warning {
+    background-color: red;
+    height: 60px;
+    font-size: large;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    padding-top: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+    vertical-align: center;
+}
+
+header .warning button {
+    top: 10px;
+}
+
+.banner {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.banner img {
+    margin: 0px 0px 0px 0px;
+    width: 100%;
+    object-position: 5px 10%;
+    opacity: 0.3;
+}
+
+.banner .title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: Tektur, Arial; 
+    font-weight: 700; 
+    font-size: xx-large;
+    vertical-align: baseline;
+    color: black;
+    opacity: 1;
+}
+
+.bottomBannerBar {
+    width: 100%; 
+    height: 10px; 
+    background-color:black;
+}
+
+.menu {
+    background-color: rgb(217, 219, 219);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.menuBtn {
+    padding: 9px 10px;
+    background-color: rgb(35, 32, 24);
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 2px;
+    margin-left: 15px;
+}
+
+.menuBtn:hover {
+    background-color:  rgb(217, 219, 219);
+    font-style: bold;
+    color: black;
+    text-decoration: underline;
+    text-decoration-color: #2ab53a;
+}
+
+.bottomMenuBar {
+    width: 100%; 
+    height: 5px; 
+    background-color:rgb(121, 206, 166);
+}
+
+
+.containerSection {
+    background-color: rgba(255, 255, 255, 0.87);
+    padding: 30px 40px;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+
+.containerSection h1{
+    color: white;
+    background-color: #a2bec2;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    width: 150px;
+}
+
+fieldset {
+    border: 0;
+}
+
+/* Elementos de tags <body>, <input>, <Select>, <textarea> e <button> */
+input, select, button {
+    font-family: sans-serif;
+    font-size: 1em;
+    color: #000000;
+    border-radius: 5px;
+}
+
+/* Elementos de classe "grupo" nos estados das pseudoclasses "before" e "after" */
+.grupo:before, .grupo:after {
+    display: table;
+}
+
+/* Elementos de classe "grupo" no estado da pseudoclasse "after" */
+.grupo:after {
+    clear: both;
+}
+
+/* Elementos de classe "campo" */
+.campo {
+    margin-bottom: 1em;
+    margin-left: 1em;
+}
+
+/* Elementos de classe "campo" de tag <label> */
+.campo label {
+    margin-bottom: 0.2em;
+    color: #000000;
+    display: block;
+}
+
+/* Elementos de classe "campo" ou "grupo" de tag <fieldset> */
+fieldset.grupo .campo .botao {
+    float:  left;
+    margin-right: 1em;
+}
+
+/* Elementos de classe "campo" das tags <input> com atributo text e email, da tag <select> e da tag <textarea>*/
+.campo input[type="text"], .campo input[type="email"], .campo select, .campo textarea {
+    padding: 0.2em;
+    border: 1px solid #59429d;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    display: block;
+}
+
+/* Elementos de classe "campo" de tag <select> e <option>*/
+.campo select option {
+    padding-right: 1em;
+}
+
+/* Elemento de classe "campo" com tag <input>, <select> e <textarea> tocas com estado da pseudoclasse "focus"*/
+.campo input:focus, .campo select:focus, .campo textarea:focus {
+    background: #E0E0F8;
+}
+
+/* Elemento de classe "botao" */
+.botao {
+    font-size: 1.2em;
+    background: #000000;
+    border: 0;
+    margin-bottom: 1em;
+    color: #ffffff;
+    padding: 0.2em 0.6em;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+}
+
+/* Elemento de classe "botao" com o estado da pseudoclasse "hover" */
+.botao:hover {
+    background: #CCBBFF;
+    box-shadow: inset 2px 2px 2px rgba(0,0,0,0.2);
+    text-shadow: none;
+}
+
+/* Elementos de classe botão e de tag <select> */
+.botao, select{
+    cursor: pointer;
+}
+
+
+#objectName {
+    margin: 0;
+    border: 1px solid rgb(35, 32, 24);
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.newItem {
+    background-color: rgb(225, 222, 199);
+    padding: 30px 40px;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+
+#newInput {
+    margin: 0;
+    border: 1px solid rgb(35, 32, 24);
+    width: 25%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#newQuantity {
+    margin: 0;
+    border: 1px solid rgb(35, 32, 24);
+    width: 8%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#newPrice {
+    margin: 0;
+    border: 1px solid rgb(35, 32, 24);
+    width: 5%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+
+.addBtn {
+    padding: 9px 10px;
+    background-color: rgb(35, 32, 24);
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.addBtn:hover {
+    background-color: #2ab53a;
+    color: white;
+}
+
+.items {
+    margin: 40px;
+    padding: 0;
+    justify-content: center;
+}
+
+.close:hover {
+    color: #f44336;
+    font-weight: bolder;
+}
+
+.tableContainer {
+    padding: 20px 60px;
+    color: white;
+    display: inline;
+    justify-content: center;
+}
+
+.tableContainer h1{
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    display: block;
+    height: 30px;
+    background-color: rgb(217, 219, 219);
+    text-align: center;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 10px;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+th{
+    background-color: slategray;
+    color: white;
+}
+
+tr{
+    color: black;
+}
+
+table{
+    background-color: rgb(224, 224, 224);
+    width: 50%;
+}
+
+tr:nth-child(odd){
+    background-color: white;
+}
+
+th:nth-child(1){
+    width: 80%;
+}
+
+tr:hover {
+    background: rgb(133, 139, 146);
+    color: white;
+}
+

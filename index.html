@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Tektur:wght@400..900&display=swap" rel="stylesheet">    
+
+    <title>Projeto</title>
+
+</head>
+
+<body>
+     <!-- Cabeçalho de informações do sistema -->
+    <header>
+        <div id="messageDisplay" class="warning" hidden="true">
+            <label>Mensagem de Erro</label>
+            <br>
+            <button id="messageReaded">OK</button>
+        </div>        
+        <div class="banner">
+            <div class="title">
+                <h1>Controle de Finanças Pessoais</h1>
+            </div>
+            <img src="img/imgBanner.png">
+        </div>
+    </header>
+
+    <div class="bottomBannerBar"></div>
+
+    <section class="menu">
+        <button onclick="newItem()" class="menuBtn">Receitas</button>
+        <button onclick="newItem()" class="menuBtn">Cartões de Crédito</button>
+        <button onclick="newItem()" class="menuBtn">Despesas</button>
+        <button onclick="newItem()" class="menuBtn">Reservas</button>
+        <button onclick="newItem()" class="menuBtn">Controle Mensal</button>
+    </section>   
+    
+    <div class="bottomMenuBar"></div>   
+
+    <section id="financialEntrySection" class="containerSection">
+        <h1>TITULO</h1>
+        <form id="financialEntryForm">
+            <input type="hidden" id="financialEntryId">
+            <input type="hidden" id="financialEntryTypeId">
+            <fieldset class="grupo">
+              <div class="campo">
+                <label for="financialEntryName"><strong>Nome</strong></label>
+                <input type="text" class="objectName" name="financialEntryName" id="financialEntryName" placeholder="Digite o nome da movimentação..."></input>
+              </div>
+              <div class="campo">
+                <label type="financialEntryRecurrent"><strong>Recorrente?</strong></label>
+                <input type="checkbox" id="financialEntryRecurrent" value="1">
+              </div>
+              <div class="campo">
+                <label for="financialEntryCategory"><strong>Categoria</strong></label>
+                <select id="financialEntryCategory">
+                    <option selected disable value="">Selecione Categoria</option>
+                    <option>Categoria 1</option>
+                    <option>Categoria 2</option>
+                </select>
+              </div>   
+              <div class="campo">
+                <label for="financialEntryCreditCardNumber"><strong>Cartão de Credito</strong></label>
+                <select id="financialEntryCreditCardNumber">
+                    <option value="1" selected>FIXO</option>
+                    <option value="2">VARIAVEL</option>
+                </select>
+              </div>                               
+            </fieldset><br>
+            <fieldset class="grupo">
+                <div class="campo">
+                  <label for="financialEntryStartDate"><strong>Data Inicio</strong></label>
+                  <input type="date" name="financialEntryStartDate" id="financialEntryStartDate"/>
+                </div>
+                <div class="campo">
+                    <label for="financialEntryFinishDate"><strong>Data Fim</strong></label>
+                    <input type="date" name="financialEntryFinishDate" id="financialEntryFinishDate"/>
+                </div>
+                <div class="campo">
+                    <label for="financialEntryValue"><strong>Valor</strong></label>
+                    <input type="number" name="financialEntryValue" id="financialEntryValue"/>
+                </div>                
+                <div class="campo">
+                  <label for="financialEntryValueType"><strong>Tipo de Valor</strong></label>
+                  <select id="financialEntryCategory">
+                      <option value="1" selected>FIXO</option>
+                      <option value="2">VARIAVEL</option>
+                  </select>
+                </div>              
+              </fieldset><br>
+              <fieldset class="grupo">
+                <div class="campo">
+                    <button class="botao" type="submit">Adicionar</button>
+                    <button class="botao" type="submit">Atualizar</button>
+                    <button class="botao" type="submit">Limpar</button>
+                </div>
+              </fieldset>
+        </form>
+        <section class="tableContainer">
+            <table id="financialEntryTable">
+                <tr>
+                    <th>Identificador</th>
+                    <th>Descrição</th>
+                    <th>Recorrente</th>
+                    <th>Data Inicio</th>
+                    <th>Data Fim</th>
+                    <th>Valor</th>
+                    <th>Tipo Valor</th>
+                    <th>Cartão de Crédito</th>
+                    <th hidden="true">Nome</th>
+                    <th hidden="true">Id Recorrencia</th>
+                    <th hidden="true">Id Categoria</th>
+                    <th hidden="true">Id Tipo Valor</th>
+                    <th><img src="img/lixeira-de-reciclagem.png" width="15px" height="15px"></th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>[SALARIO] Salario</td>
+                    <td>SIM</td>
+                    <td>01/01/2021</td>
+                    <td></td>
+                    <td>R$ 10000</td>
+                    <td>FIXO</td>
+                    <td>1234123412341234</td>
+                    <td hidden="true">Nome</td>
+                    <td hidden="true">Id Recorrencia</td>
+                    <td hidden="true">Id Categoria</td>
+                    <td hidden="true">Id Tipo Valor</td>                    
+                    <td><img src="img/lixeira-de-reciclagem.png" widtd="15px" height="15px"></td>
+                </tr>                
+            </table>   
+        </section>
+    </section>
+
+
+
+
+    
+
+    <section id="creditCardSection" class="containerSection">
+        <h1>TITULO</h1>
+        <form id="creditCardForm">
+            <input type="hidden" id="creditCardId">
+            <fieldset class="grupo">
+              <div class="campo">
+                <label for="creditCardFlag"><strong>Bandeira</strong></label>
+                <select id="creditCardFlag">
+                    <option selected disable value="">Selecione a Bandeira</option>
+                    <option>VISA</option>
+                    <option>MASTERCARD</option>
+                </select>
+              </div>   
+              <div class="campo">
+                <label for="creditCardName"><strong>Nome</strong></label>
+                <input type="text" class="objectName" name="creditCardName" id="creditCardName" placeholder="Digite o nome para o cartão..."></input>
+              </div>
+              <div class="campo">
+                <label for="creditCardCreditCardNumber"><strong>Cartão de Credito</strong></label>
+                <input type="number" name="creditCardCreditCardNumber" id="creditCardCreditCardNumber"/>
+              </div>                               
+            </fieldset><br>
+            <fieldset class="grupo">
+                <div class="campo">
+                  <label for="creditCardMonth"><strong>Mês</strong></label>
+                  <input type="number" name="creditCardMonth" id="creditCardMonth"/>
+                </div>
+                <div class="campo">
+                    <label for="creditCardYear"><strong>Ano</strong></label>
+                    <input type="number" name="creditCardYear" id="creditCardYear"/>
+                  </div>
+              </fieldset><br>
+              <fieldset class="grupo">
+                <div class="campo">
+                    <button class="botao" type="submit">Adicionar</button>
+                    <button class="botao" type="submit">Atualizar</button>
+                    <button class="botao" type="submit">Limpar</button>
+                </div>
+              </fieldset>
+        </form>
+        <section class="tableContainer">
+            <table id="creditCardTable">
+                <tr>
+                    <th>Numero</th>
+                    <th>Descrição</th>
+                    <th>Mes</th>
+                    <th>Ano</th>
+                    <th hidden="true">Identificador</th>
+                    <th hidden="true">Id Bandeira</th>
+                    <th hidden="true">Nome</th>
+                    <th><img src="img/lixeira-de-reciclagem.png" width="15px" height="15px"></th>
+                </tr>
+                <tr>
+                    <td>1234123412341234</td>
+                    <td>[VISA] Cartao Itau</td>
+                    <td>12</td>
+                    <td>2050</td>
+                    <td hidden="true">1</td>
+                    <td hidden="true">1</td>
+                    <td hidden="true">Cartao Itau</td>
+                    <td><img src="img/lixeira-de-reciclagem.png" widtd="15px" height="15px"></td>
+                </tr>                
+            </table>   
+        </section>
+    </section>
+    
+
+
+
+    <section id="financialControlSection" class="containerSection">
+        <h1>TITULO</h1>
+        <form id="financialControlForm">
+            <fieldset class="grupo">
+                <div class="campo">
+                    <label for="financialControlEntries"><strong>Controles Abertos</strong></label>
+                    <select id="financialControlEntries">
+                        <option value="1" selected>FIXO</option>
+                        <option value="2">VARIAVEL</option>
+                    </select>
+                  </div> <br><br>                
+                <div class="campo">
+                  <label for="financialControlMonth"><strong>Mês</strong></label>
+                  <input type="number" name="financialControlMonth" id="financialControlMonth"/>
+                </div>
+                <div class="campo">
+                  <label for="financialControlYear"><strong>Ano</strong></label>
+                  <input type="number" name="financialControlYear" id="financialControlYear"/>
+                </div> 
+                <div class="campo">
+                    <label for="financialControlEntryValue"><strong>Valor</strong></label>
+                    <input type="number" name="financialControlEntryValue" id="financialControlEntryValue"/>
+                </div>                                
+            </fieldset><br>
+            <fieldset class="grupo">
+                <div class="campo">
+                    <button class="botao" type="submit">Gerar Controle Mensal</button>
+                    <button class="botao" type="submit">Atualizar Entrada</button>
+                    <button class="botao" type="submit">Limpar</button>
+                </div>
+            </fieldset>
+        </form>
+        <section class="tableContainer">
+            <table id="financialControlSummaryTable" style="display:flex; margin: left 50px; background-color:rgb(165, 216, 231); border:0px">
+                <tr>
+                    <th>Total de Receitas</th>
+                    <th>Total de Reservas</th>
+                    <th>Total de Despesas</th>
+                    <th>Resultado</th>
+                </tr>
+                <tr>
+                    <td>1250</td>
+                    <td>3000</td>
+                    <td>100</td>
+                    <td>1520</td>
+                </tr>                
+            </table><br><br>
+            <h1>RECEITAS</h1>
+            <table id="financialEntryRevenueTable">
+                <tr>
+                    <th>Identificador</th>
+                    <th>Descrição</th>
+                    <th>Recorrente</th>
+                    <th>Data Inicio</th>
+                    <th>Data Fim</th>
+                    <th>Valor</th>
+                    <th>Tipo Valor</th>
+                    <th hidden="true">Nome</th>
+                    <th hidden="true">Id Recorrencia</th>
+                    <th hidden="true">Id Categoria</th>
+                    <th hidden="true">Id Tipo Valor</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>[SALARIO] Salario</td>
+                    <td>SIM</td>
+                    <td>01/01/2021</td>
+                    <td></td>
+                    <td>R$ 10000</td>
+                    <td>FIXO</td>
+                    <td hidden="true">Nome</td>
+                    <td hidden="true">Id Recorrencia</td>
+                    <td hidden="true">Id Categoria</td>
+                    <td hidden="true">Id Tipo Valor</td>                    
+                </tr>                
+            </table><br><br>
+            <h1>DESPESAS</h1>  
+            <table id="financialEntryExpensesTable">
+                <tr>
+                    <th>Identificador</th>
+                    <th>Descrição</th>
+                    <th>Recorrente</th>
+                    <th>Data Inicio</th>
+                    <th>Data Fim</th>
+                    <th>Valor</th>
+                    <th>Tipo Valor</th>
+                    <th>Cartão de Crédito</th>
+                    <th hidden="true">Nome</th>
+                    <th hidden="true">Id Recorrencia</th>
+                    <th hidden="true">Id Categoria</th>
+                    <th hidden="true">Id Tipo Valor</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>[SALARIO] Salario</td>
+                    <td>SIM</td>
+                    <td>01/01/2021</td>
+                    <td></td>
+                    <td>R$ 10000</td>
+                    <td>FIXO</td>
+                    <td>1234123412341234</td>
+                    <td hidden="true">Nome</td>
+                    <td hidden="true">Id Recorrencia</td>
+                    <td hidden="true">Id Categoria</td>
+                    <td hidden="true">Id Tipo Valor</td>                    
+                </tr>                
+            </table><br><br>
+            <h1>RESERVAS</h1>   
+            <table id="financialEntryReservesTable">
+                <tr>
+                    <th>Identificador</th>
+                    <th>Descrição</th>
+                    <th>Recorrente</th>
+                    <th>Data Inicio</th>
+                    <th>Data Fim</th>
+                    <th>Valor</th>
+                    <th>Tipo Valor</th>
+                    <th hidden="true">Nome</th>
+                    <th hidden="true">Id Recorrencia</th>
+                    <th hidden="true">Id Categoria</th>
+                    <th hidden="true">Id Tipo Valor</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>[SALARIO] Salario</td>
+                    <td>SIM</td>
+                    <td>01/01/2021</td>
+                    <td></td>
+                    <td>R$ 10000</td>
+                    <td>FIXO</td>
+                    <td hidden="true">Nome</td>
+                    <td hidden="true">Id Recorrencia</td>
+                    <td hidden="true">Id Categoria</td>
+                    <td hidden="true">Id Tipo Valor</td>                    
+                </tr>                
+            </table>                                    
+        </section>
+    </section>
+
+
+
+    <script src="scripts/generalScripts.js"></script>
+
+</body>
+
+</html>
+
+
