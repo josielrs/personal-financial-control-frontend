@@ -149,10 +149,39 @@ document.getElementById('messageReaded').onclick = function() {
 
   document.getElementById('messageDisplay').hidden = true
 
-};
+}; 
 
-document.getElementById('messageRead').onclick = function() {
 
-  document.getElementById('messageDisplay').hidden = false
 
-};   
+const hideAllSections = function() {
+
+    document.getElementById('financialEntrySection').setAttribute('style','display: none;')
+    document.getElementById('creditCardSection').setAttribute('style','display: none;')
+    document.getElementById('financialControlSection').setAttribute('style','display: none;')
+
+}
+
+const showFinancialEntrySectionToRevenue = function(){
+  hideAllSections()
+  document.getElementById('financialEntrySection').setAttribute('style','display: flex;')
+}
+
+const showFinancialEntrySectionToExpenses = function(){
+  hideAllSections()
+  document.getElementById('financialEntrySection').setAttribute('style','display: flex;')
+}
+
+const showFinancialEntrySectionToReserve = function(){
+  hideAllSections()
+  document.getElementById('financialEntrySection').setAttribute('style','display: flex;')
+}
+
+const showFinancialControlSection = function(){
+  hideAllSections()
+  document.getElementById('financialControlSection').setAttribute('style','display: flex;')
+}
+
+const showCreditCardSection = function(){
+  hideAllSections()
+  document.getElementById('creditCardSection').setAttribute('style','display: flex;')
+}
