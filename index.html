@@ -49,29 +49,29 @@
             <input type="hidden" id="financialEntryTypeId">
             <fieldset class="grupo">
               <div class="campo">
+                <label for="financialEntryCategory"><strong>Categoria</strong></label>
+                <select id="financialEntryCategory">
+                  <option selected disable value="">Selecione Categoria</option>
+                  <option>Categoria 1</option>
+                  <option>Categoria 2</option>
+                </select>
+              </div>                
+              <div class="campo">
                 <label for="financialEntryName"><strong>Nome</strong></label>
                 <input type="text" class="objectName" name="financialEntryName" id="financialEntryName" placeholder="Digite o nome da movimentação..."></input>
               </div>
-              <div class="campo">
-                <label type="financialEntryRecurrent"><strong>Recorrente?</strong></label>
-                <input type="checkbox" id="financialEntryRecurrent" value="1">
-              </div>
-              <div class="campo">
-                <label for="financialEntryCategory"><strong>Categoria</strong></label>
-                <select id="financialEntryCategory">
-                    <option selected disable value="">Selecione Categoria</option>
-                    <option>Categoria 1</option>
-                    <option>Categoria 2</option>
-                </select>
-              </div>   
-              <div class="campo">
+              <div class="campo" id="divFinancialEntryCreditCard">
                 <label for="financialEntryCreditCardNumber"><strong>Cartão de Credito</strong></label>
                 <select id="financialEntryCreditCardNumber">
                     <option value="1" selected>123456798465498</option>
                     <option value="2">123456798465498</option>
                 </select>
-              </div>                               
-            </fieldset><br>
+              </div>               
+              <div class="campo">
+                <label type="financialEntryRecurrent"><strong>Recorrente?</strong></label>
+                <input type="checkbox" id="financialEntryRecurrent" value="1">
+              </div>                                 
+            </fieldset>
             <fieldset class="grupo">
                 <div class="campo">
                   <label for="financialEntryStartDate"><strong>Data Inicio</strong></label>
@@ -87,7 +87,7 @@
                 </div>                
                 <div class="campo">
                   <label for="financialEntryValueType"><strong>Tipo de Valor</strong></label>
-                  <select id="financialEntryCategory">
+                  <select id="financialEntryValueType">
                       <option value="1" selected>FIXO</option>
                       <option value="2">VARIAVEL</option>
                   </select>
@@ -95,9 +95,9 @@
               </fieldset><br>
               <fieldset class="grupo">
                 <div class="campo">
-                    <button class="botao" type="button" onclick="resetFinancialEntryTableContent('financialEntryTable')">Adicionar</button>
+                    <button class="botao" type="button" onclick="insertFinancialEntry()">Adicionar</button>
                     <button class="botao" type="submit" style="display: none;">Atualizar</button>
-                    <button class="botao" type="button" onclick="insertFinancialEntryTableContent(1,'desc','SIM','01/01/2001','01/01/2001',150.2,1,123456,'name',1,1,1)">Limpar</button>
+                    <button class="botao" type="button" onclick="cleanFinancialEntryForm()">Limpar</button>
                 </div>
               </fieldset>
         </form>

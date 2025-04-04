@@ -169,6 +169,7 @@ const showErrorMessage = function(message){
   document.getElementById('messageDisplay').hidden = true
   document.getElementById('messageContent').innerHTML = '<strong>'+message+'</strong>'
   document.getElementById('messageDisplay').hidden = false
+  window.scrollTo(0,0)
 }
 
 
@@ -191,9 +192,13 @@ const hideAllSections = function() {
   --------------------------------------------------------------------------------------
 */
 const showFinancialEntrySectionToRevenue = function(){
-  hideAllSections()
-  resetFinancialEntryTableContent()
+  hideAllSections() 
+  resetFinancialEntryTableContent('financialEntryTable')
   findFinancialEntryList(1)
+  refreshFinancialEntryCategorySelectionField(1)
+  document.getElementById('divFinancialEntryCreditCard').hidden = true
+  cleanOptionsOfSelect('financialEntryCreditCardNumber')
+  document.getElementById('financialEntryTypeId').value = 1
   document.getElementById('financialEntrySection').setAttribute('style','display: flex;')
 }
 
@@ -204,9 +209,13 @@ Função para exibir o menu de despesas, ele já chama o processo de busca de de
 --------------------------------------------------------------------------------------
 */
 const showFinancialEntrySectionToExpenses = function(){
-  hideAllSections()
-  resetFinancialEntryTableContent()
+  hideAllSections()  
+  resetFinancialEntryTableContent('financialEntryTable')
   findFinancialEntryList(2)
+  refreshFinancialEntryCategorySelectionField(2)
+  document.getElementById('divFinancialEntryCreditCard').hidden = false
+  refreshFinancialEntryCreditCardField()
+  document.getElementById('financialEntryTypeId').value = 2
   document.getElementById('financialEntrySection').setAttribute('style','display: flex;')
 }
 
@@ -218,8 +227,12 @@ Função para exibir o menu de reservas, ele já chama o processo de busca de re
 */
 const showFinancialEntrySectionToReserve = function(){
   hideAllSections()
-  resetFinancialEntryTableContent()
+  resetFinancialEntryTableContent('financialEntryTable')
   findFinancialEntryList(3)
+  refreshFinancialEntryCategorySelectionField(3)
+  document.getElementById('divFinancialEntryCreditCard').hidden = true
+  cleanOptionsOfSelect('financialEntryCreditCardNumber')
+  document.getElementById('financialEntryTypeId').value = 3
   document.getElementById('financialEntrySection').setAttribute('style','display: flex;')
 }
 
@@ -336,4 +349,222 @@ const findFinancialEntryList = async (entryTypeId) => {
     .catch((error) => {
       showErrorMessage(error)
     });
+}
+
+
+/*
+  --------------------------------------------------------------------------------------
+  Função para resetar lista de opções
+  --------------------------------------------------------------------------------------
+*/
+const cleanOptionsOfSelect = function(elementId){
+  let selectElement = document.getElementById(elementId)
+  if (selectElement && selectElement != undefined){
+    let selectOptions = selectElement.options
+    if (selectOptions && selectOptions != undefined){
+      while (selectOptions.length > 0){
+        selectElement.removeChild(selectOptions[selectOptions.length - 1])
+      }
+    }
+  }
+}
+
+
+/*
+  --------------------------------------------------------------------------------------
+  Função para incluir lista de opções
+  --------------------------------------------------------------------------------------
+*/
+const insertOptionsOfSelect = function(elementId,value,displayValue){
+  let selectElement = document.getElementById(elementId)
+  if (selectElement && selectElement != undefined){
+    let option = document.createElement('option')
+    option.text = displayValue
+    option.value = value
+    selectElement.add(option)
+  }
+}
+
+
+/*
+  --------------------------------------------------------------------------------------
+  Função para obter a lista de categorias de movimentação do servidor
+  --------------------------------------------------------------------------------------
+*/
+const findFinancialCategoryList = async (entryTypeId) => {
+  let url = 'http://127.0.0.1:5000/financialControlCategory/?entry_type_id='+entryTypeId;
+  fetch(url, {
+    method: 'get',
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      data.financialEntryCategories.forEach(item => insertOptionsOfSelect('financialEntryCategory',item.id,item.name))
+    })
+    .catch((error) => {
+      showErrorMessage(error)
+    });
+}
+
+
+/*
+  --------------------------------------------------------------------------------------
+  Função para preencher o campo de categoriasd e movimentacao
+  --------------------------------------------------------------------------------------
+*/
+const refreshFinancialEntryCategorySelectionField = function(entryTypeId){
+  cleanOptionsOfSelect('financialEntryCategory')
+  findFinancialCategoryList(entryTypeId)
+}
+
+
+/*
+  --------------------------------------------------------------------------------------
+  Função para obter a lista de cartoes de credito do servidor
+  --------------------------------------------------------------------------------------
+*/
+const findCreditCardList = async () => {
+  let url = 'http://127.0.0.1:5000/creditCard';
+  fetch(url, {
+    method: 'get',
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      data.creditCards.forEach(item => insertOptionsOfSelect('financialEntryCreditCardNumber',item.number,item.description))
+    })
+    .catch((error) => {
+      showErrorMessage(error)
+    });
+}
+
+
+/*
+  --------------------------------------------------------------------------------------
+  Função para preencher o campo de cartoes de credito
+  --------------------------------------------------------------------------------------
+*/
+const refreshFinancialEntryCreditCardField = function(){
+  cleanOptionsOfSelect('financialEntryCreditCardNumber')
+  findCreditCardList()
+}
+
+
+/*
+  --------------------------------------------------------------------------------------
+  Função para uma nova movimentação financeira na base de dados
+  --------------------------------------------------------------------------------------
+*/
+const postFinancialEntry = async (entryTypeId,financialEntryCategoryId,name,startDate,finishDate,recurrent,value,creditCardNumber,valueTypeId) => {
+  const formData = new FormData();
+  formData.append('credit_card_number', creditCardNumber);
+  formData.append('entry_type_id', entryTypeId);
+  formData.append('financial_entry_category_id', financialEntryCategoryId);
+  formData.append('finish_date', "'"+finishDate+"'");
+  formData.append('name', "'"+name+"'");
+  formData.append('recurrent', recurrent);
+  formData.append('start_date', "'"+startDate+"'");
+  formData.append('value', value);
+  formData.append('value_type_id', valueTypeId);    
+
+  let url = 'http://127.0.0.1:5000/financialEntry';
+  fetch(url, {
+    method: 'post',
+    body: formData
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      insertFinancialEntryTableContent(data.id,data.description,data.recurrent_desc,data.start_date,data.finish_date,data.value,data.value_type_name,data.credit_card_number,data.name,data.recurrent,data.financial_entry_category_id,data.value_type_id)
+    })
+    .catch((error) => {
+      showErrorMessage(error)
+    });
+}
+
+
+const getSelectedOptionValueOfSelectElement = function(elementId){
+  let selectElement = document.getElementById(elementId)
+  if (selectElement && selectElement != undefined){
+    let selectOptions = selectElement.options
+    if (selectOptions && selectOptions != undefined){
+      let indexToSearch = selectOptions.selectedIndex
+      if (indexToSearch >= 0) {
+        return selectOptions[indexToSearch].value
+      }
+    }
+  }
+  return undefined
+}
+
+
+const isUndefined = function(value){
+  return !value || value == undefined
+}
+
+
+/*
+  --------------------------------------------------------------------------------------
+  Função para validar os dados do formulario de movimentação financeira
+  --------------------------------------------------------------------------------------
+*/
+const preValidateFinancialEntryFormData = function(entryTypeId,financialEntryCategoryId,name,startDate){
+  if (isUndefined(entryTypeId)) {
+    return '<entryTypeId> não definido'
+  }
+  if (isUndefined(financialEntryCategoryId)) {
+    return 'Categoria Financeira não preenchida !!'
+  }
+  if (isUndefined(name) || name == '') {
+    return 'Por favor, dê um nome para esta movimentação !!!'
+  }
+  if (isUndefined(startDate) || startDate == '') {
+    return 'Por favor, insira uma data de inicio da movimentação !!!'
+  }
+}
+
+/*
+  --------------------------------------------------------------------------------------
+  Função para limpar dados do formulario de movimentação financeira
+  --------------------------------------------------------------------------------------
+*/
+const cleanFinancialEntryForm = function(){
+  let entryTypeId = document.getElementById('financialEntryTypeId').value
+  document.getElementById('financialEntryName').value = ''
+  document.getElementById('financialEntryStartDate').value = ''
+  document.getElementById('financialEntryFinishDate').value = ''
+  document.getElementById('financialEntryValue').value = ''
+  document.getElementById('financialEntryRecurrent').checked = false
+  refreshFinancialEntryCategorySelectionField(entryTypeId)
+  if (entryTypeId == 2) {
+    document.getElementById('divFinancialEntryCreditCard').hidden = false
+    refreshFinancialEntryCreditCardField()
+  } else {
+    document.getElementById('divFinancialEntryCreditCard').hidden = true
+    cleanOptionsOfSelect('financialEntryCreditCardNumber')    
+  }
+}
+
+
+/*
+  --------------------------------------------------------------------------------------
+  Função para buscar dados do formulario e inserir uma nova movimentação financeira na base de dados
+  --------------------------------------------------------------------------------------
+*/
+const insertFinancialEntry = function(){
+  let entryTypeId = document.getElementById('financialEntryTypeId').value
+  let name = document.getElementById('financialEntryName').value
+  let startDate = document.getElementById('financialEntryStartDate').value
+  let finishDate = document.getElementById('financialEntryFinishDate').value
+  let value = document.getElementById('financialEntryValue').value
+  let recurrent = document.getElementById('financialEntryRecurrent').checked ? 1 : 0
+  let financialEntryCategoryId = getSelectedOptionValueOfSelectElement('financialEntryCategory')
+  let creditCardNumber = (entryTypeId == 2) ? getSelectedOptionValueOfSelectElement('financialEntryCreditCardNumber') : undefined
+  let valueTypeId = getSelectedOptionValueOfSelectElement('financialEntryValueType')
+
+  let errorMessage = preValidateFinancialEntryFormData(entryTypeId,financialEntryCategoryId,name,startDate)
+
+  if (!isUndefined(errorMessage)) {
+    showErrorMessage(errorMessage)
+  } else {
+    postFinancialEntry(entryTypeId,financialEntryCategoryId,name,startDate,finishDate,recurrent,value,creditCardNumber,valueTypeId)
+    cleanFinancialEntryForm()
+  }
 }
