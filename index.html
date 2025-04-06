@@ -50,7 +50,7 @@
             <fieldset class="grupo">
               <div class="campo">
                 <label for="financialEntryCategory"><strong>Categoria</strong></label>
-                <select id="financialEntryCategory">
+                <select id="financialEntryCategory" onchange="setCustomProperty(this.id,'valueChanged','true')">
                   <option selected disable value="">Selecione Categoria</option>
                   <option>Categoria 1</option>
                   <option>Categoria 2</option>
@@ -58,36 +58,36 @@
               </div>                
               <div class="campo">
                 <label for="financialEntryName"><strong>Nome</strong></label>
-                <input type="text" class="objectName" name="financialEntryName" id="financialEntryName" placeholder="Digite o nome da movimentação..."></input>
+                <input type="text" class="objectName" name="financialEntryName" id="financialEntryName" placeholder="Digite o nome da movimentação..." onchange="setCustomProperty(this.id,'valueChanged','true')"></input>
               </div>
               <div class="campo" id="divFinancialEntryCreditCard">
                 <label for="financialEntryCreditCardNumber"><strong>Cartão de Credito</strong></label>
-                <select id="financialEntryCreditCardNumber">
+                <select id="financialEntryCreditCardNumber" deselected onchange="setCustomProperty(this.id,'valueChanged','true')">
                     <option value="1" selected>123456798465498</option>
                     <option value="2">123456798465498</option>
                 </select>
               </div>               
               <div class="campo">
                 <label type="financialEntryRecurrent"><strong>Recorrente?</strong></label>
-                <input type="checkbox" id="financialEntryRecurrent" value="1">
+                <input type="checkbox" id="financialEntryRecurrent" value="1" onchange="setCustomProperty(this.id,'valueChanged','true')">
               </div>                                 
             </fieldset>
             <fieldset class="grupo">
                 <div class="campo">
                   <label for="financialEntryStartDate"><strong>Data Inicio</strong></label>
-                  <input type="date" name="financialEntryStartDate" id="financialEntryStartDate"/>
+                  <input type="date" name="financialEntryStartDate" onchange="setCustomProperty(this.id,'valueChanged','true')" id="financialEntryStartDate"/>
                 </div>
                 <div class="campo">
                     <label for="financialEntryFinishDate"><strong>Data Fim</strong></label>
-                    <input type="date" name="financialEntryFinishDate" id="financialEntryFinishDate"/>
+                    <input type="date" name="financialEntryFinishDate" onchange="setCustomProperty(this.id,'valueChanged','true')" id="financialEntryFinishDate"/>
                 </div>
                 <div class="campo">
                     <label for="financialEntryValue"><strong>Valor</strong></label>
-                    <input type="number" name="financialEntryValue" id="financialEntryValue"/>
+                    <input type="number" name="financialEntryValue" onchange="setCustomProperty(this.id,'valueChanged','true')" id="financialEntryValue"/>
                 </div>                
                 <div class="campo">
                   <label for="financialEntryValueType"><strong>Tipo de Valor</strong></label>
-                  <select id="financialEntryValueType">
+                  <select id="financialEntryValueType" onchange="setCustomProperty(this.id,'valueChanged','true')">
                       <option value="1" selected>FIXO</option>
                       <option value="2">VARIAVEL</option>
                   </select>
@@ -95,8 +95,8 @@
               </fieldset><br>
               <fieldset class="grupo">
                 <div class="campo">
-                    <button class="botao" type="button" onclick="insertFinancialEntry()">Adicionar</button>
-                    <button class="botao" type="submit" style="display: none;">Atualizar</button>
+                    <button class="botao" type="button" id="addFinancialEntryButton" onclick="insertFinancialEntry()">Adicionar</button>
+                    <button class="botao" type="button" id="changeFinancialEntryButton" onclick="updateFinancialEntry()" style="display: none;">Atualizar</button>
                     <button class="botao" type="button" onclick="cleanFinancialEntryForm()">Limpar</button>
                 </div>
               </fieldset>
@@ -116,6 +116,8 @@
                     <th hidden="true">Id Recorrencia</th>
                     <th hidden="true">Id Categoria</th>
                     <th hidden="true">Id Tipo Valor</th>
+                    <th hidden="true">Data Inicio</th>
+                    <th hidden="true">Data Fim</th>
                     <th><img src="img/lixeira-de-reciclagem.png" width="15px" height="15px"></th>
                 </tr>
                 <tr>
@@ -130,7 +132,9 @@
                     <td hidden="true">Nome</td>
                     <td hidden="true">Id Recorrencia</td>
                     <td hidden="true">Id Categoria</td>
-                    <td hidden="true">Id Tipo Valor</td>                    
+                    <td hidden="true">Id Tipo Valor</td>     
+                    <th hidden="true">Data Inicio</th>
+                    <th hidden="true">Data Fim</th>                                   
                     <td><img src="img/lixeira-de-reciclagem.png" widtd="15px" height="15px"></td>
                 </tr>  
                 <tr>
@@ -146,6 +150,8 @@
                     <td hidden="true">Id Recorrencia</td>
                     <td hidden="true">Id Categoria</td>
                     <td hidden="true">Id Tipo Valor</td>                    
+                    <th hidden="true">Data Inicio</th>
+                    <th hidden="true">Data Fim</th>                    
                     <td><img src="img/lixeira-de-reciclagem.png" widtd="15px" height="15px"></td>
                 </tr>
                 <tr>
@@ -160,7 +166,9 @@
                     <td hidden="true">Nome</td>
                     <td hidden="true">Id Recorrencia</td>
                     <td hidden="true">Id Categoria</td>
-                    <td hidden="true">Id Tipo Valor</td>                    
+                    <td hidden="true">Id Tipo Valor</td>       
+                    <th hidden="true">Data Inicio</th>
+                    <th hidden="true">Data Fim</th>                                 
                     <td><img src="img/lixeira-de-reciclagem.png" widtd="15px" height="15px"></td>
                 </tr>              
             </table>   
@@ -174,36 +182,35 @@
             <fieldset class="grupo">
               <div class="campo">
                 <label for="creditCardFlag"><strong>Bandeira</strong></label>
-                <select id="creditCardFlag">
-                    <option selected disable value="">Selecione a Bandeira</option>
+                <select id="creditCardFlag" onchange="setCustomProperty(this.id,'valueChanged','true')">
                     <option>VISA</option>
                     <option>MASTERCARD</option>
                 </select>
               </div>   
               <div class="campo">
                 <label for="creditCardName"><strong>Nome</strong></label>
-                <input type="text" class="objectName" name="creditCardName" id="creditCardName" placeholder="Digite o nome para o cartão..."></input>
+                <input type="text" class="objectName" name="creditCardName" id="creditCardName" placeholder="Digite o nome para o cartão..." onchange="setCustomProperty(this.id,'valueChanged','true')"></input>
               </div>
               <div class="campo">
                 <label for="creditCardCreditCardNumber"><strong>Cartão de Credito</strong></label>
-                <input type="number" name="creditCardCreditCardNumber" id="creditCardCreditCardNumber"/>
+                <input type="number" name="creditCardCreditCardNumber" id="creditCardCreditCardNumber" onchange="setCustomProperty(this.id,'valueChanged','true')"/>
               </div>                               
             </fieldset><br>
             <fieldset class="grupo">
                 <div class="campo">
                   <label for="creditCardMonth"><strong>Mês</strong></label>
-                  <input type="number" name="creditCardMonth" id="creditCardMonth"/>
+                  <input type="number" name="creditCardMonth" id="creditCardMonth" onchange="setCustomProperty(this.id,'valueChanged','true')"/>
                 </div>
                 <div class="campo">
                     <label for="creditCardYear"><strong>Ano</strong></label>
-                    <input type="number" name="creditCardYear" id="creditCardYear"/>
+                    <input type="number" name="creditCardYear" id="creditCardYear" onchange="setCustomProperty(this.id,'valueChanged','true')"/>
                   </div>
               </fieldset><br>
               <fieldset class="grupo">
                 <div class="campo">
-                    <button class="botao" type="submit">Adicionar</button>
-                    <button class="botao" type="submit" style="display: none;">Atualizar</button>
-                    <button class="botao" type="submit">Limpar</button>
+                    <button class="botao" id="addCreditCardButton" onclick="insertCreditCard()" type="button">Adicionar</button>
+                    <button class="botao" id="changeCreditCardButton" onclick="updateCreditCard()" type="button" style="display: none;">Atualizar</button>
+                    <button class="botao" type="button" onclick="cleanCreditCardForm()">Limpar</button>
                 </div>
               </fieldset>
         </form>
@@ -234,12 +241,13 @@
     </section>
     
     <section id="financialControlSection" class="containerSection" style="display: none;">
-        <h1>TITULO</h1>
+        <h1 id="financialControlSectionTitle">TITULO</h1>
         <form id="financialControlForm">
+            <input type="hidden" id="financialControlEntryId">
             <fieldset class="grupo">
                 <div class="campo">
-                    <label for="financialControlEntries"><strong>Controles Abertos</strong></label>
-                    <select id="financialControlEntries">
+                    <label for="financialControlList"><strong>Controles Abertos</strong></label>
+                    <select id="financialControlList" onchange="findFinancialControlAllEntries()">
                         <option value="1" selected>FIXO</option>
                         <option value="2">VARIAVEL</option>
                     </select>
@@ -254,14 +262,13 @@
                 </div> 
                 <div class="campo" id="financialControlEntryValueGroup" style="display: none;">
                     <label for="financialControlEntryValue"><strong>Valor</strong></label>
-                    <input type="number" name="financialControlEntryValue" id="financialControlEntryValue"/>
+                    <input type="number" name="financialControlEntryValue" id="financialControlEntryValue" onchange="setCustomProperty(this.id,'valueChanged','true')"/>
                 </div>                                
             </fieldset><br>
             <fieldset class="grupo">
                 <div class="campo">
-                    <button class="botao" type="submit">Gerar Controle Mensal</button>
-                    <button class="botao" type="submit" style="display: none;">Atualizar Entrada</button>
-                    <button class="botao" type="submit" style="display: none;">Limpar</button>
+                    <button class="botao" type="button" id="buildFinancialControlButton" onclick="submitBuildFinancialControl()">Gerar Controle Mensal</button>
+                    <button class="botao" type="button" id="changeFinancialEntryValueButton" onclick="updateFinancialControlEntry()" style="display: none;">Atualizar Entrada</button>
                 </div>
             </fieldset>
         </form>
@@ -286,27 +293,31 @@
                     <th>Identificador</th>
                     <th>Descrição</th>
                     <th>Recorrente</th>
-                    <th>Data Inicio</th>
-                    <th>Data Fim</th>
+                    <th>Data da Movimentação</th>
                     <th>Valor</th>
                     <th>Tipo Valor</th>
+                    <th hidden="true">Cartão de Crédito</th>
                     <th hidden="true">Nome</th>
                     <th hidden="true">Id Recorrencia</th>
                     <th hidden="true">Id Categoria</th>
                     <th hidden="true">Id Tipo Valor</th>
+                    <th hidden="true">Mes</th>
+                    <th hidden="true">Ano</th>
                 </tr>
                 <tr>
                     <td>1</td>
                     <td>[SALARIO] Salario</td>
                     <td>SIM</td>
                     <td>01/01/2021</td>
-                    <td></td>
                     <td>R$ 10000</td>
                     <td>FIXO</td>
+                    <td hidden="true">Cartão de Crédito</td>
                     <td hidden="true">Nome</td>
                     <td hidden="true">Id Recorrencia</td>
                     <td hidden="true">Id Categoria</td>
-                    <td hidden="true">Id Tipo Valor</td>                    
+                    <td hidden="true">Id Tipo Valor</td>
+                    <td hidden="true">0</td>
+                    <td hidden="true">0</td>                    
                 </tr>                
             </table><br><br>
             <h1 id="financialEntryExpensesTableTitle">DESPESAS</h1>  
@@ -315,8 +326,7 @@
                     <th>Identificador</th>
                     <th>Descrição</th>
                     <th>Recorrente</th>
-                    <th>Data Inicio</th>
-                    <th>Data Fim</th>
+                    <th>Data da Movimentação</th>
                     <th>Valor</th>
                     <th>Tipo Valor</th>
                     <th>Cartão de Crédito</th>
@@ -324,20 +334,23 @@
                     <th hidden="true">Id Recorrencia</th>
                     <th hidden="true">Id Categoria</th>
                     <th hidden="true">Id Tipo Valor</th>
+                    <th hidden="true">Mes</th>
+                    <th hidden="true">Ano</th>
                 </tr>
                 <tr>
                     <td>1</td>
                     <td>[SALARIO] Salario</td>
                     <td>SIM</td>
                     <td>01/01/2021</td>
-                    <td></td>
                     <td>R$ 10000</td>
                     <td>FIXO</td>
                     <td>1234123412341234</td>
                     <td hidden="true">Nome</td>
                     <td hidden="true">Id Recorrencia</td>
                     <td hidden="true">Id Categoria</td>
-                    <td hidden="true">Id Tipo Valor</td>                    
+                    <td hidden="true">Id Tipo Valor</td>
+                    <td hidden="true">0</td>
+                    <td hidden="true">0</td>                   
                 </tr>                
             </table><br><br>
             <h1 id="financialEntryReservesTableTitle">RESERVAS</h1>   
@@ -346,27 +359,31 @@
                     <th>Identificador</th>
                     <th>Descrição</th>
                     <th>Recorrente</th>
-                    <th>Data Inicio</th>
-                    <th>Data Fim</th>
+                    <th>Data da Movimentação</th>
                     <th>Valor</th>
                     <th>Tipo Valor</th>
+                    <th hidden="true">Cartão de Crédito</th>
                     <th hidden="true">Nome</th>
                     <th hidden="true">Id Recorrencia</th>
                     <th hidden="true">Id Categoria</th>
                     <th hidden="true">Id Tipo Valor</th>
+                    <th hidden="true">Mes</th>
+                    <th hidden="true">Ano</th>
                 </tr>
                 <tr>
                     <td>1</td>
                     <td>[SALARIO] Salario</td>
                     <td>SIM</td>
                     <td>01/01/2021</td>
-                    <td></td>
                     <td>R$ 10000</td>
                     <td>FIXO</td>
+                    <td hidden="true">1234123412341234</td>
                     <td hidden="true">Nome</td>
                     <td hidden="true">Id Recorrencia</td>
                     <td hidden="true">Id Categoria</td>
-                    <td hidden="true">Id Tipo Valor</td>                    
+                    <td hidden="true">Id Tipo Valor</td>
+                    <td hidden="true">0</td>
+                    <td hidden="true">0</td>
                 </tr>                
             </table>                                    
         </section>
