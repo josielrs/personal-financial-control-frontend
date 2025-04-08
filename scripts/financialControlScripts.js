@@ -21,7 +21,7 @@ const showFinancialControlSection = function(){
   --------------------------------------------------------------------------------------
 */
 const findFinancialControlList = async () => {
-  let url = 'http://127.0.0.1:5000/financialControl';
+  let url = SERVER_ENDPOINT+'/financialControl';
   fetch(url, {
     method: 'get',
   })
@@ -149,7 +149,7 @@ Função para obter a lista de movimentacoes financeiras do servidor para um con
 --------------------------------------------------------------------------------------
 */
 const findFinancialControlEntryesToTable = async (month,year) => {
-  let url = 'http://127.0.0.1:5000/financialControl/?month={MONTH}&year={YEAR}'.replace('{MONTH}',month).replace('{YEAR}',year);
+  let url = SERVER_ENDPOINT+'/financialControl/?month={MONTH}&year={YEAR}'.replace('{MONTH}',month).replace('{YEAR}',year);
   fetch(url, {
     method: 'get',
   })
@@ -253,7 +253,7 @@ Função para obter o resumo do controle financeiro mensal
 --------------------------------------------------------------------------------------
 */
 const findFinancialControlSummaryToTable = async (month,year) => {
-  let url = 'http://127.0.0.1:5000/financialControl/summary/?month={MONTH}&year={YEAR}'.replace('{MONTH}',month).replace('{YEAR}',year);
+  let url = SERVER_ENDPOINT+'/financialControl/summary/?month={MONTH}&year={YEAR}'.replace('{MONTH}',month).replace('{YEAR}',year);
   fetch(url, {
     method: 'get',
   })
@@ -311,7 +311,7 @@ const patchFinancialControlEntry = async (monthValue,yearValue,entryIdValue,form
   bodyContent.financialEntryId = entryIdValue
   bodyContent.value = formValue
 
-  let url = 'http://127.0.0.1:5000/financialControl';
+  let url = SERVER_ENDPOINT+'/financialControl';
   
   fetch(url, {
     method: 'PATCH',
@@ -396,7 +396,7 @@ const postBuildFinancialControl = async (monthForm, yearForm) => {
   bodyContent.month = monthForm
   bodyContent.year = yearForm
 
-  let url = 'http://127.0.0.1:5000/financialControl';
+  let url = SERVER_ENDPOINT+'/financialControl';
   
   fetch(url, {
     method: 'POST',

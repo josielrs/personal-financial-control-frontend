@@ -107,7 +107,7 @@ const insertFinancialEntryTableContent = function(id, description, recurrentDesc
   --------------------------------------------------------------------------------------
 */
 const findFinancialEntryList = async (entryTypeId) => {
-  let url = 'http://127.0.0.1:5000/financialEntry?entry_type_id='+entryTypeId;
+  let url = SERVER_ENDPOINT+'/financialEntry?entry_type_id='+entryTypeId;
   fetch(url, {
     method: 'get',
   })
@@ -137,7 +137,7 @@ const findFinancialEntryList = async (entryTypeId) => {
   --------------------------------------------------------------------------------------
 */
 const findFinancialCategoryList = async (entryTypeId) => {
-  let url = 'http://127.0.0.1:5000/financialControlCategory/?entry_type_id='+entryTypeId;
+  let url = SERVER_ENDPOINT+'/financialControlCategory/?entry_type_id='+entryTypeId;
   fetch(url, {
     method: 'get',
   })
@@ -177,7 +177,7 @@ const refreshFinancialEntryCategorySelectionField = function(entryTypeId){
   --------------------------------------------------------------------------------------
 */
 const findCreditCardList = async () => {
-  let url = 'http://127.0.0.1:5000/creditCard';
+  let url = SERVER_ENDPOINT+'/creditCard';
   fetch(url, {
     method: 'get',
   })
@@ -246,7 +246,7 @@ const postFinancialEntry = async (entryTypeId,financialEntryCategoryId,nameValue
     bodyContent.value_type_id = parseInt(valueTypeId)
   }   
 
-  let url = 'http://127.0.0.1:5000/financialEntry';
+  let url = SERVER_ENDPOINT+'/financialEntry';
   
   fetch(url, {
     method: 'POST',
@@ -436,7 +436,7 @@ const patchFinancialEntry = async (entryTypeId,financialEntryCategoryId,nameValu
     bodyContent.value_type_id = parseInt(valueTypeId)
   }   
 
-  let url = 'http://127.0.0.1:5000/financialEntry';
+  let url = SERVER_ENDPOINT+'/financialEntry';
   
   fetch(url, {
     method: 'PATCH',
@@ -545,7 +545,7 @@ const updateFinancialEntry = function(){
   --------------------------------------------------------------------------------------
 */
 const deleteFinancialEntryInServer = (givenId,entryTypeId) => {
-  let url = 'http://127.0.0.1:5000/financialEntry';
+  let url = SERVER_ENDPOINT+'/financialEntry';
   fetch(url, {
     method: 'DELETE',
     body: JSON.stringify({"id":givenId}),

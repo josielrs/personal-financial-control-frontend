@@ -52,7 +52,7 @@ Função para obter a lista de cartões de crédito do servidor
 --------------------------------------------------------------------------------------
 */
 const findCreditCardListToTable = async () => {
-    let url = 'http://127.0.0.1:5000/creditCard';
+    let url = SERVER_ENDPOINT+'/creditCard';
     fetch(url, {
       method: 'get',
     })
@@ -80,7 +80,7 @@ const findCreditCardListToTable = async () => {
   --------------------------------------------------------------------------------------
 */
 const findCreditCardFlagList = async () => {
-  let url = 'http://127.0.0.1:5000/creditCardFlag';
+  let url = SERVER_ENDPOINT+'/creditCardFlag';
   fetch(url, {
     method: 'get',
   })
@@ -160,7 +160,7 @@ const postCreditCard = async (number, month, year, idFlag, name) => {
     bodyContent.name = name
   }   
 
-  let url = 'http://127.0.0.1:5000/creditCard';
+  let url = SERVER_ENDPOINT+'/creditCard';
   
   fetch(url, {
     method: 'POST',
@@ -293,7 +293,7 @@ const patchCreditCard = async (number, month, year, idFlag, name) => {
     bodyContent.name = name
   }
 
-  let url = 'http://127.0.0.1:5000/creditCard';
+  let url = SERVER_ENDPOINT+'/creditCard';
   
   fetch(url, {
     method: 'PATCH',
@@ -375,7 +375,7 @@ const updateCreditCard = function(){
   --------------------------------------------------------------------------------------
 */
 const deleteCreditCardInServer = (givenNumber) => {
-  let url = 'http://127.0.0.1:5000/creditCard';
+  let url = SERVER_ENDPOINT+'/creditCard';
   fetch(url, {
     method: 'DELETE',
     body: JSON.stringify({"number":givenNumber}),
