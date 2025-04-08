@@ -11,17 +11,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Tektur:wght@400..900&display=swap" rel="stylesheet">    
 
-    <title>Projeto</title>
+    <title>Controle Financeiro Pessoal</title>
 
 </head>
 
 <body>
      <!-- Cabeçalho de informações do sistema -->
     <header>
+        <!-- Exibição de mensagens de erro -->
         <div id="messageDisplay" class="warning" hidden="true">
             <label id="messageContent"></label><br><br>
             <button id="messageReaded" onclick="hideErrorMessage()"><strong>OK</strong></button>
-        </div>        
+        </div>
+        <!-- Titulo da Pagina -->        
         <div class="banner">
             <div class="title">
                 <h1>Controle de Finanças Pessoais</h1>
@@ -32,6 +34,7 @@
 
     <div class="bottomBannerBar"></div>
 
+    <!-- Menu Principal -->
     <section class="menu">
         <button onclick="showFinancialEntrySectionToRevenue()" class="menuBtn">Receitas</button>
         <button onclick="showCreditCardSection()" class="menuBtn">Cartões de Crédito</button>
@@ -42,8 +45,10 @@
     
     <div class="bottomMenuBar"></div>   
 
+    <!-- Seção da pagina dedicado as movimentacoes financeiras, RECEITA, DESPESAS e RESERVAS -->
     <section id="financialEntrySection" class="containerSection" style="display:none;">
         <h1 id="financialEntrySectionTitle">TITULO</h1>
+        <!-- Formulário para inclusão e atualização de dados -->
         <form id="financialEntryForm">
             <input type="hidden" id="financialEntryId">
             <input type="hidden" id="financialEntryTypeId">
@@ -51,9 +56,6 @@
               <div class="campo">
                 <label for="financialEntryCategory"><strong>Categoria</strong></label>
                 <select id="financialEntryCategory" onchange="setCustomProperty(this.id,'valueChanged','true')">
-                  <option selected disable value="">Selecione Categoria</option>
-                  <option>Categoria 1</option>
-                  <option>Categoria 2</option>
                 </select>
               </div>                
               <div class="campo">
@@ -63,8 +65,6 @@
               <div class="campo" id="divFinancialEntryCreditCard">
                 <label for="financialEntryCreditCardNumber"><strong>Cartão de Credito</strong></label>
                 <select id="financialEntryCreditCardNumber" deselected onchange="setCustomProperty(this.id,'valueChanged','true')">
-                    <option value="1" selected>123456798465498</option>
-                    <option value="2">123456798465498</option>
                 </select>
               </div>               
               <div class="campo">
@@ -101,6 +101,7 @@
                 </div>
               </fieldset>
         </form>
+        <!-- Tabelas de movimentaçoes Financeiras -->
         <section class="tableContainer">
             <table id="financialEntryTable">
                 <tr>
@@ -119,72 +120,21 @@
                     <th hidden="true">Data Inicio</th>
                     <th hidden="true">Data Fim</th>
                     <th><img src="img/lixeira-de-reciclagem.png" width="15px" height="15px"></th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>[SALARIO] Salario</td>
-                    <td>SIM</td>
-                    <td>01/01/2021</td>
-                    <td></td>
-                    <td>R$ 10000</td>
-                    <td>FIXO</td>
-                    <td>1234123412341234</td>
-                    <td hidden="true">Nome</td>
-                    <td hidden="true">Id Recorrencia</td>
-                    <td hidden="true">Id Categoria</td>
-                    <td hidden="true">Id Tipo Valor</td>     
-                    <th hidden="true">Data Inicio</th>
-                    <th hidden="true">Data Fim</th>                                   
-                    <td><img src="img/lixeira-de-reciclagem.png" widtd="15px" height="15px"></td>
-                </tr>  
-                <tr>
-                    <td>1</td>
-                    <td>[SALARIO] Salario</td>
-                    <td>SIM</td>
-                    <td>01/01/2021</td>
-                    <td></td>
-                    <td>R$ 10000</td>
-                    <td>FIXO</td>
-                    <td>1234123412341234</td>
-                    <td hidden="true">Nome</td>
-                    <td hidden="true">Id Recorrencia</td>
-                    <td hidden="true">Id Categoria</td>
-                    <td hidden="true">Id Tipo Valor</td>                    
-                    <th hidden="true">Data Inicio</th>
-                    <th hidden="true">Data Fim</th>                    
-                    <td><img src="img/lixeira-de-reciclagem.png" widtd="15px" height="15px"></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>[SALARIO] Salario</td>
-                    <td>SIM</td>
-                    <td>01/01/2021</td>
-                    <td></td>
-                    <td>R$ 10000</td>
-                    <td>FIXO</td>
-                    <td>1234123412341234</td>
-                    <td hidden="true">Nome</td>
-                    <td hidden="true">Id Recorrencia</td>
-                    <td hidden="true">Id Categoria</td>
-                    <td hidden="true">Id Tipo Valor</td>       
-                    <th hidden="true">Data Inicio</th>
-                    <th hidden="true">Data Fim</th>                                 
-                    <td><img src="img/lixeira-de-reciclagem.png" widtd="15px" height="15px"></td>
-                </tr>              
+                </tr>          
             </table>   
         </section>
     </section>    
 
+    <!-- Seção da pagina dedicado aos cartões de cŕedito -->
     <section id="creditCardSection" class="containerSection" style="display: none;">
         <h1 id="creditCardSectionTitle">TITULO</h1>
+        <!-- Formulário para inserção e atualização de dados -->
         <form id="creditCardForm">
             <input type="hidden" id="creditCardId">
             <fieldset class="grupo">
               <div class="campo">
                 <label for="creditCardFlag"><strong>Bandeira</strong></label>
                 <select id="creditCardFlag" onchange="setCustomProperty(this.id,'valueChanged','true')">
-                    <option>VISA</option>
-                    <option>MASTERCARD</option>
                 </select>
               </div>   
               <div class="campo">
@@ -214,6 +164,7 @@
                 </div>
               </fieldset>
         </form>
+        <!-- Tabela de cartões de credito -->
         <section class="tableContainer">
             <table id="creditCardTable">
                 <tr>
@@ -225,31 +176,21 @@
                     <th hidden="true">Id Bandeira</th>
                     <th hidden="true">Nome</th>
                     <th><img src="img/lixeira-de-reciclagem.png" width="15px" height="15px"></th>
-                </tr>
-                <tr>
-                    <td>1234123412341234</td>
-                    <td>[VISA] Cartao Itau</td>
-                    <td>12</td>
-                    <td>2050</td>
-                    <td hidden="true">1</td>
-                    <td hidden="true">1</td>
-                    <td hidden="true">Cartao Itau</td>
-                    <td><img src="img/lixeira-de-reciclagem.png" widtd="15px" height="15px"></td>
-                </tr>                
+                </tr>              
             </table>   
         </section>
     </section>
     
+    <!-- Seção da pagina dedicado ao controle financeiro -->
     <section id="financialControlSection" class="containerSection" style="display: none;">
         <h1 id="financialControlSectionTitle">TITULO</h1>
+        <!-- Formulário de inserção e atualização de dados -->
         <form id="financialControlForm">
             <input type="hidden" id="financialControlEntryId">
             <fieldset class="grupo">
                 <div class="campo">
                     <label for="financialControlList"><strong>Controles Abertos</strong></label>
                     <select id="financialControlList" onchange="findFinancialControlAllEntries()">
-                        <option value="1" selected>FIXO</option>
-                        <option value="2">VARIAVEL</option>
                     </select>
                   </div> <br><br>                
                 <div class="campo">
@@ -272,6 +213,7 @@
                 </div>
             </fieldset>
         </form>
+        <!-- Tabelas do controle financeiro -->
         <section class="tableContainer">
             <table id="financialControlSummaryTable" style="display:flex; margin: left 50px; background-color:rgb(165, 216, 231); border:0px">
                 <tr>
@@ -279,13 +221,7 @@
                     <th>Total de Reservas</th>
                     <th>Total de Despesas</th>
                     <th>Resultado</th>
-                </tr>
-                <tr>
-                    <td>1250</td>
-                    <td>3000</td>
-                    <td>100</td>
-                    <td>1520</td>
-                </tr>                
+                </tr>               
             </table><br><br>
             <h1 id="financialEntryRevenueTableTitle">RECEITAS</h1>
             <table id="financialEntryRevenueTable">
@@ -303,22 +239,7 @@
                     <th hidden="true">Id Tipo Valor</th>
                     <th hidden="true">Mes</th>
                     <th hidden="true">Ano</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>[SALARIO] Salario</td>
-                    <td>SIM</td>
-                    <td>01/01/2021</td>
-                    <td>R$ 10000</td>
-                    <td>FIXO</td>
-                    <td hidden="true">Cartão de Crédito</td>
-                    <td hidden="true">Nome</td>
-                    <td hidden="true">Id Recorrencia</td>
-                    <td hidden="true">Id Categoria</td>
-                    <td hidden="true">Id Tipo Valor</td>
-                    <td hidden="true">0</td>
-                    <td hidden="true">0</td>                    
-                </tr>                
+                </tr>               
             </table><br><br>
             <h1 id="financialEntryExpensesTableTitle">DESPESAS</h1>  
             <table id="financialEntryExpensesTable">
@@ -336,22 +257,7 @@
                     <th hidden="true">Id Tipo Valor</th>
                     <th hidden="true">Mes</th>
                     <th hidden="true">Ano</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>[SALARIO] Salario</td>
-                    <td>SIM</td>
-                    <td>01/01/2021</td>
-                    <td>R$ 10000</td>
-                    <td>FIXO</td>
-                    <td>1234123412341234</td>
-                    <td hidden="true">Nome</td>
-                    <td hidden="true">Id Recorrencia</td>
-                    <td hidden="true">Id Categoria</td>
-                    <td hidden="true">Id Tipo Valor</td>
-                    <td hidden="true">0</td>
-                    <td hidden="true">0</td>                   
-                </tr>                
+                </tr>               
             </table><br><br>
             <h1 id="financialEntryReservesTableTitle">RESERVAS</h1>   
             <table id="financialEntryReservesTable">
@@ -369,30 +275,16 @@
                     <th hidden="true">Id Tipo Valor</th>
                     <th hidden="true">Mes</th>
                     <th hidden="true">Ano</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>[SALARIO] Salario</td>
-                    <td>SIM</td>
-                    <td>01/01/2021</td>
-                    <td>R$ 10000</td>
-                    <td>FIXO</td>
-                    <td hidden="true">1234123412341234</td>
-                    <td hidden="true">Nome</td>
-                    <td hidden="true">Id Recorrencia</td>
-                    <td hidden="true">Id Categoria</td>
-                    <td hidden="true">Id Tipo Valor</td>
-                    <td hidden="true">0</td>
-                    <td hidden="true">0</td>
                 </tr>                
             </table>                                    
         </section>
     </section>
 
     <script src="scripts/generalScripts.js"></script>
+    <script src="scripts/financialEntryScripts.js"></script>
+    <script src="scripts/creditCardScripts.js"></script>
+    <script src="scripts/financialControlScripts.js"></script>
 
 </body>
 
 </html>
-
-
