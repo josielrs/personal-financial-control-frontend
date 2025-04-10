@@ -326,6 +326,9 @@ const cleanFinancialEntryForm = function(){
   
   document.getElementById('addFinancialEntryButton').setAttribute('style','display: flex;')
   document.getElementById('changeFinancialEntryButton').setAttribute('style','display: none;')
+
+  document.getElementById('financialEntryValueType').removeAttribute('disabled');
+  document.getElementById('financialEntryRecurrent').removeAttribute('disabled');
 }
 
 
@@ -395,6 +398,9 @@ const populateFinancialEntryForm = function(tableRow){
       
       document.getElementById('addFinancialEntryButton').setAttribute('style','display: none;')
       document.getElementById('changeFinancialEntryButton').setAttribute('style','display: flex;')
+
+      document.getElementById('financialEntryValueType').setAttribute('disabled','true');
+      document.getElementById('financialEntryRecurrent').setAttribute('disabled','true');
       
     }
 }
@@ -514,9 +520,6 @@ const updateFinancialEntry = function(){
     value = document.getElementById('financialEntryValue').value
   }
   let recurrent
-  if (document.getElementById('financialEntryRecurrent').getAttribute('valueChanged') == 'true') {
-    recurrent = document.getElementById('financialEntryRecurrent').checked ? 1 : 0
-  }
   let financialEntryCategoryId
   if (document.getElementById('financialEntryCategory').getAttribute('valueChanged') == 'true') {
     financialEntryCategoryId = getSelectedOptionValueOfSelectElement('financialEntryCategory')
@@ -526,9 +529,6 @@ const updateFinancialEntry = function(){
     creditCardNumber = (entryTypeId == 2) ? getSelectedOptionValueOfSelectElement('financialEntryCreditCardNumber') : undefined
   }
   let valueTypeId
-  if (document.getElementById('financialEntryValueType').getAttribute('valueChanged') == 'true') {
-    valueTypeId = getSelectedOptionValueOfSelectElement('financialEntryValueType')
-  }  
   
   let errorMessage = preValidateFinancialEntryFormDataToUpdate(id,entryTypeId,financialEntryCategoryId,name,startDate,finishDate,value,recurrent,creditCardNumber,valueTypeId)
 
